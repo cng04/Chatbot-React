@@ -1,0 +1,26 @@
+.upload-container {
+    padding-left: 50px;
+    padding-top: 10px;
+    width: 550px;
+}
+
+.upload {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-text {
+    margin-bottom: 15px;
+}
+
+.file-input {
+    margin-bottom: 15px;
+}
+
+.MuiButtonBase-root {
+    width: 100px;
+}
+
+.buttons {
+    display: flex;
+}

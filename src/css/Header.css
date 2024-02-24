@@ -1,0 +1,17 @@
+.header {
+    height: 52px;
+    background-color: black;
+    display: flex;
+}
+
+.ontario-logo {
+    flex-basis: 50%;
+    display: flex;
+}
+
+.ontario-logo-image {
+    width: 100px;
+    height: 27px;
+    margin-top: 10px;
+    margin-left: 25px;
+}
