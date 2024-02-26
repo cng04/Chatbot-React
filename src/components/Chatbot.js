@@ -74,6 +74,10 @@ function Chatbot(props) {
         })
   }
 
+  const refresh = (event) => {
+    setMessages([]);
+  }
+
   return (
     <>
       <div className="outer-container">
@@ -102,6 +106,9 @@ function Chatbot(props) {
       </div>
       <div>
         <SimilarQuestions/>
+          <div className="refresh-button">
+          <Button border onClick={refresh}>Refresh</Button>
+        </div>
       </div>
     </>
   );
