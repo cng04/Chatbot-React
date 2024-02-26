@@ -20,6 +20,9 @@ function Chatbot(props) {
   // State to indicate whether Open AI is generating the responsem, initial value is falses
   const [typing, setTyping] = useState(false);
 
+  // State to keep and set the similar questions the OpenAI model responds with
+  const [similarQuestions, setSimilarQuestions] = useState([]);
+
   let newQuestion;
 
   // function to handle sending messages
@@ -48,7 +51,13 @@ function Chatbot(props) {
 
   // Will have the OpenAI model process the message and update messages to reflect returned answer
   async function processMessageOpenAI(question) {
+    console.log(question.message);
+
     let api_endpoint = "http://127.0.0.1:8081/question"
+
+    if (question.message == "similar") {
+      api_endpoint = "http://127.0.0.1:8081/similar"
+    } 
 
     // if (props.upload == "true") {
     //   api_endpoint = "http://127.0.0.1:8081/index"
@@ -68,12 +77,18 @@ function Chatbot(props) {
         }).then((response) => {
           return response.json();
         }).then((data) => {
-          console.log(question)
-          setMessages([...messages, question, data]);
+          const answer = data.answer;
+          const sq = data.similarQuestions;
+          setMessages([...messages, question, answer]);
           setTyping(false);
+
+          if (sq != "") {
+            setSimilarQuestions(sq);
+          }
         })
   }
 
+  // Function to clear chatbot messages
   const refresh = (event) => {
     setMessages([]);
   }
@@ -105,7 +120,7 @@ function Chatbot(props) {
         </div>
       </div>
       <div>
-        <SimilarQuestions/>
+        <SimilarQuestions sq={similarQuestions}/>
           <div className="refresh-button">
           <Button border onClick={refresh}>Refresh</Button>
         </div>
