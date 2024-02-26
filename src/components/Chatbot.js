@@ -1,7 +1,10 @@
 import '../css/Chatbot.css';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react'
+import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, Button } from '@chatscope/chat-ui-kit-react'
 import { useState, useEffect, useRef } from 'react';
+
+// Chatbot is parent component of Similar Questions
+import SimilarQuestions from './SimilarQuestions';
 
 function Chatbot(props) {
   let listMessages = [
@@ -72,30 +75,35 @@ function Chatbot(props) {
   }
 
   return (
-    <div className="outer-container">
-      <div className="container">
-        <MainContainer>
-          <ChatContainer>
-            <MessageList
-              scrollBehavior='smooth'
+    <>
+      <div className="outer-container">
+        <div className="container">
+          <MainContainer>
+            <ChatContainer>
+              <MessageList
+                scrollBehavior='smooth'
 
-              // if typing state is true, show 'Open AI is typing', otherwise don't
-              typingIndicator={typing? <TypingIndicator content="Chatbot is typing"/>: null}
-            >
-              {/* Every message in messages gets a Message component to display to screen */}
-              {messages.map((message, i) => {
-                console.log(messages)
-                return <Message key={i} model={message}>
-                  <Message.Footer sender={message.sender}/>
-                </Message>
-              })}
-            </MessageList>
-            {/* User inputs messages here */}
-            <MessageInput placeholder="Please enter your question here" onSend={handleSend}/>
-          </ChatContainer>
-        </MainContainer>
+                // if typing state is true, show 'Open AI is typing', otherwise don't
+                typingIndicator={typing? <TypingIndicator content="Chatbot is typing"/>: null}
+              >
+                {/* Every message in messages gets a Message component to display to screen */}
+                {messages.map((message, i) => {
+                  console.log(messages)
+                  return <Message key={i} model={message}>
+                    <Message.Footer sender={message.sender}/>
+                  </Message>
+                })}
+              </MessageList>
+              {/* User inputs messages here */}
+              <MessageInput placeholder="Please enter your question here" onSend={handleSend}/>
+            </ChatContainer>
+          </MainContainer>
+        </div>
       </div>
-    </div>
+      <div>
+        <SimilarQuestions/>
+      </div>
+    </>
   );
 }
 
