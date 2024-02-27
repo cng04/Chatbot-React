@@ -79,10 +79,11 @@ function Chatbot(props) {
         }).then((data) => {
           const answer = data.answer;
           const sq = data.similarQuestions;
+          console.log(sq);
           setMessages([...messages, question, answer]);
           setTyping(false);
 
-          if (sq != "") {
+          if (sq.length != 0) {
             setSimilarQuestions(sq);
           }
         })
@@ -91,6 +92,11 @@ function Chatbot(props) {
   // Function to clear chatbot messages
   const refresh = (event) => {
     setMessages([]);
+  }
+
+  const handleDataFromChild = (data) => {
+    console.log(data);
+    handleSend(data);
   }
 
   return (
@@ -120,7 +126,7 @@ function Chatbot(props) {
         </div>
       </div>
       <div>
-        <SimilarQuestions sq={similarQuestions}/>
+        <SimilarQuestions sq={similarQuestions} sendDataToParent={handleDataFromChild}/>
           <div className="refresh-button">
           <Button border onClick={refresh}>Refresh</Button>
         </div>
