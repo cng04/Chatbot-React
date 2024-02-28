@@ -23,7 +23,7 @@ function Chatbot(props) {
   // State to keep and set the similar questions the OpenAI model responds with
   const [similarQuestions, setSimilarQuestions] = useState([]);
 
-  let newQuestion;
+  const [showSimilarQuestions, setShowSimilarQuestions] = useState(false);
 
   // function to handle sending messages
   const handleSend = async (question) => {
@@ -85,6 +85,7 @@ function Chatbot(props) {
 
           if (sq.length != 0) {
             setSimilarQuestions(sq);
+            setShowSimilarQuestions(true);
           }
         })
   }
@@ -96,6 +97,8 @@ function Chatbot(props) {
 
   const handleDataFromChild = (data) => {
     console.log(data);
+    setSimilarQuestions([]);
+    setShowSimilarQuestions(false);
     handleSend(data);
   }
 
@@ -118,6 +121,9 @@ function Chatbot(props) {
                     <Message.Footer sender={message.sender}/>
                   </Message>
                 })}
+                <div>
+                  <SimilarQuestions showSQ={showSimilarQuestions} sq={similarQuestions} sendDataToParent={handleDataFromChild}/>
+                </div>
               </MessageList>
               {/* User inputs messages here */}
               <MessageInput placeholder="Please enter your question here" onSend={handleSend}/>
@@ -125,11 +131,8 @@ function Chatbot(props) {
           </MainContainer>
         </div>
       </div>
-      <div>
-        <SimilarQuestions sq={similarQuestions} sendDataToParent={handleDataFromChild}/>
-          <div className="refresh-button">
+      <div className="refresh-button">
           <Button border onClick={refresh}>Refresh</Button>
-        </div>
       </div>
     </>
   );
