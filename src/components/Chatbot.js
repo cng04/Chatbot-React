@@ -27,6 +27,8 @@ function Chatbot(props) {
 
   // function to handle sending messages
   const handleSend = async (question) => {
+    setSimilarQuestions([]);
+    setShowSimilarQuestions(false);
 
      // new message object
      const newQuestion = {
