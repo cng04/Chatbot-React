@@ -13,7 +13,7 @@ export default function SimilarQuestions(props) {
     let similarQuestions = props.sq;
     let showSQ = props.showSQ
 
-    if (similarQuestions.length == 0) {
+    if (similarQuestions.length === 0) {
         console.log("d");
         similarQuestions = [];
     }
@@ -31,14 +31,14 @@ export default function SimilarQuestions(props) {
         <>
             <div className="similar-questions-component">
                 <div className="similar-questions-text">
-                    {showSQ ? <p>Did you mean one of these questions?</p> : <></>}
+                    {showSQ ? <p>Would you like to try one of these questions?</p> : <></>}
                 </div>
                 <div className="similar-questions-buttons">
                     {/* Create a Button for each similar question in the array */}
                     {similarQuestions.map((sq, i) => {
                         console.log(sq)
                         console.log(i)
-                        return <Button key={i} className="sq-button" border value={sq.question.message} onClick={sendSqToParent}>{sq.question.message}</Button>
+                        return <Button border variant="secondary" key={i} className="sq-button" value={sq.question.message} onClick={sendSqToParent}>{sq.question.message}</Button>
                     })}
                 </div>
             </div>

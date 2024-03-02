@@ -1,11 +1,36 @@
-.container {
+.chatbot {
+  display: block;
+  width: auto;
+}
+
+@media (min-width: 2400px) {
+  .container {
     height: 525px;
-    width: 700px;
+    width: 1200px;
     justify-content: center;
     align-items: center;
   }
+}
+
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+    height: 485px;
+    width: 1000px;
+    justify-content: center;
+    align-items: center;
+  }
+
+.MainContainer {
+  border: none;
+} 
 
 .refresh-button {
   margin-top: 40px;
   margin-left: 30px;
 }
+

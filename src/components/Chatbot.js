@@ -6,14 +6,11 @@ import { useState, useEffect, useRef } from 'react';
 // Chatbot is parent component of Similar Questions
 import SimilarQuestions from './SimilarQuestions';
 
+// Chatbot is a parent component of UserInfo
+import UserPrompt from './UserPrompt';
+
 function Chatbot(props) {
-  let listMessages = [
-    {
-      message: "Hello, I'm your own personal chatbot",
-      sender: "OpenAI",
-      direction: "incoming"
-    }, 
-  ];
+  let listMessages = [];
 
   const [messages, setMessages] = useState(listMessages);
 
@@ -23,12 +20,16 @@ function Chatbot(props) {
   // State to keep and set the similar questions the OpenAI model responds with
   const [similarQuestions, setSimilarQuestions] = useState([]);
 
+  // State to control whether similar questions will be shown
   const [showSimilarQuestions, setShowSimilarQuestions] = useState(false);
+
+  const [showMessages, setShowMessages] = useState(false);
 
   // function to handle sending messages
   const handleSend = async (question) => {
     setSimilarQuestions([]);
     setShowSimilarQuestions(false);
+    setShowMessages(true);
 
      // new message object
      const newQuestion = {
@@ -57,7 +58,7 @@ function Chatbot(props) {
 
     let api_endpoint = "http://127.0.0.1:8081/question"
 
-    if (question.message == "similar") {
+    if (question.message === "similar") {
       api_endpoint = "http://127.0.0.1:8081/similar"
     } 
 
@@ -85,7 +86,7 @@ function Chatbot(props) {
           setMessages([...messages, question, answer]);
           setTyping(false);
 
-          if (sq.length != 0) {
+          if (sq.length !== 0) {
             setSimilarQuestions(sq);
             setShowSimilarQuestions(true);
           }
@@ -108,34 +109,42 @@ function Chatbot(props) {
     <>
       <div className="outer-container">
         <div className="container">
-          <MainContainer>
-            <ChatContainer>
-              <MessageList
-                scrollBehavior='smooth'
+          {
+            showMessages ? (
+              <ChatContainer>
+                <MessageList
+                  scrollBehavior='smooth'
 
-                // if typing state is true, show 'Open AI is typing', otherwise don't
-                typingIndicator={typing? <TypingIndicator content="Chatbot is typing"/>: null}
-              >
-                {/* Every message in messages gets a Message component to display to screen */}
-                {messages.map((message, i) => {
-                  console.log(messages)
-                  return <Message key={i} model={message}>
-                    <Message.Footer sender={message.sender}/>
-                  </Message>
-                })}
-                <div>
-                  <SimilarQuestions showSQ={showSimilarQuestions} sq={similarQuestions} sendDataToParent={handleDataFromChild}/>
-                </div>
-              </MessageList>
-              {/* User inputs messages here */}
-              <MessageInput placeholder="Please enter your question here" onSend={handleSend}/>
-            </ChatContainer>
-          </MainContainer>
+                  // if typing state is true, show 'Open AI is typing', otherwise don't
+                  typingIndicator={typing? <TypingIndicator content="Chatbot is typing"/>: null}
+                  >
+                  {/* Every message in messages gets a Message component to display to screen */}
+                  {messages.map((message, i) => {
+                    console.log(messages)
+                    return <Message key={i} model={message}>
+                      <Message.Footer sender={message.sender}/>
+                    </Message>
+                  })}
+                  <div>
+                    <SimilarQuestions showSQ={showSimilarQuestions} sq={similarQuestions} sendDataToParent={handleDataFromChild}/>
+                  </div>
+                </MessageList>
+              </ChatContainer>
+            ) : (
+              <UserPrompt sendDataToParent={(pq) => {
+                setShowMessages(true);
+                handleDataFromChild(pq);
+              }}/>
+            )
+          }
+          
+          {/* User inputs messages here */}
+          <MessageInput placeholder="Please enter your question here" onSend={handleSend}/>
         </div>
       </div>
-      <div className="refresh-button">
+      {/* <div className="refresh-button">
           <Button border onClick={refresh}>Refresh</Button>
-      </div>
+      </div> */}
     </>
   );
 }
