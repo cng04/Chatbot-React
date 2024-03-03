@@ -1,0 +1,28 @@
+.userinfo-container {
+    height: 480px;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+.name-container {
+    text-align: center;
+}
+
+.prompt-container {
+    text-align: center;
+}
+
+.prompt {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.prompt-options-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+

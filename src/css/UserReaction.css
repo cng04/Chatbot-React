@@ -1,0 +1,11 @@
+.dislike-button {
+    margin-left: 20px;
+}
+
+.like-button:hover {
+    filter: brightness(70%)
+}
+
+.dislike-button:hover {
+    filter: brightness(70%)
+}

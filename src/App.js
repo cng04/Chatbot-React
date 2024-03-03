@@ -9,8 +9,8 @@ function App() {
     <>
     <Header />
     <div className="chatbot">
-      {/* <Chatbot /> */}
-      <Upload/>
+      <Chatbot />
+      {/* <Upload/> */}
     </div>
     </>
   );
