@@ -165,6 +165,9 @@ function Chatbot(props) {
                     </Message>
                   })}
 
+                  {/* When model is generating answer, display this element to indicate model is generating answer*/}
+                  {typing? <h4 style={{fontFamily: "monospace"}}>Generating response ... </h4>: null}
+
                   {/* User Reaction Component */}
                   <UserReaction showUR={showUserReaction} sendUserReactionToParent={handleURFromChild}/>
 
@@ -173,10 +176,7 @@ function Chatbot(props) {
                     <SimilarQuestions showSQ={showSimilarQuestions} sq={similarQuestions} sendDataToParent={handleDataFromChild}/>
                   </div>
                   
-                </MessageList>
-                {
-                  typing ? <TypingIndicator className="typing-indicator" content="Chatbot is typing"/> : null    
-                }              
+                </MessageList>            
                  {/* User inputs messages here */}
                 <MessageInput className="message-input" placeholder="Please enter your question here" onSend={handleSend}/>
               </ChatContainer>
