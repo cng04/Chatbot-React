@@ -3,10 +3,11 @@
   width: auto;
 }
 
-@media (min-width: 2400px) {
-  .container {
-    height: 525px;
-    width: 1200px;
+/* Adjusting display of Chatbot Component for monitors */
+@media only screen and (min-width:1300px) {
+  div.container {
+    height: 875px;
+    width: 1400px;
     justify-content: center;
     align-items: center;
   }

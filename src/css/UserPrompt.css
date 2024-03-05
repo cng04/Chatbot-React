@@ -25,4 +25,22 @@
     margin-top: 40px;
 }
 
+/* Adjusting display of UserPrompt Component for monitors */
+@media only screen and (min-width:1300px) {
+    div.userinfo-container {
+        height: 825px;
+        width: 1400px;
+    }
+
+    div.prompt-container {
+        margin-top: 30px;
+    }
+
+    div.prompt-options-container {
+        height: 875px;
+        padding-bottom: 300px;
+    }
+    
+  }
+
 
