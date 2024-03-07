@@ -31,12 +31,12 @@ export default function UserInfo(props) {
     <div className="userinfo-container">
         <div className="name-container">
             <h1 className="name">
-                Justice Helper
+                CourtAssist
             </h1>
         </div>
         <div className="prompt-container">
             <h3 className="prompt">
-                Ask any question related to ICON/DIR, or try one of the following options:
+                Please ask for courtroom assistance, or try one of the following options:
             </h3>
         </div>
         <div className="prompt-options-container">
