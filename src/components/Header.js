@@ -2,6 +2,7 @@ import React from 'react'
 import '../css/Header.css';
 import ontarioLogo from '../images/logo-ontario@2x.png'
 
+// Component for the Ontario Header
 export default function Header() {
   return (
     <div className="header">

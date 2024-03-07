@@ -13,7 +13,10 @@ import UserPrompt from './UserPrompt';
 // Chatbot is a parent component of UserReaction
 import UserReaction from './UserReaction';
 
+// Component to display the chatbot: container, messages, user prompt and user reaction
 function Chatbot(props) {
+
+  // Initial list of messages is empty
   let listMessages = [];
 
   const [messages, setMessages] = useState(listMessages);
@@ -35,7 +38,6 @@ function Chatbot(props) {
 
   // States to hold previous question and answer
   const [previousQuestion, setPreviousQuestion] = useState("");
-
   const [previousAnswer, setPreviousAnswer] = useState("");
 
   // function to handle sending messages
@@ -70,6 +72,7 @@ function Chatbot(props) {
   async function processMessageOpenAI(question) {
     console.log(question.message);
 
+    // API POST endpoint
     let api_endpoint = "http://127.0.0.1:8081/question"
 
     if (question.message === "similar") {
@@ -97,19 +100,23 @@ function Chatbot(props) {
           const answer = data.answer;
           const sq = data.similarQuestions;
           console.log(sq);
+
+          // Updating the messages state variable with the question and answer
           setMessages([...messages, question, answer]);
 
-          // Setting previous question and answer for response POST request
+          // Setting previous question and answer for user reaction object
           setPreviousQuestion(question.message);
           setPreviousAnswer(answer.message);
 
           setTyping(false);
 
+          // If model didn't generate any similar questions, don't display similar questions
           if (sq.length !== 0) {
             setSimilarQuestions(sq);
             setShowSimilarQuestions(true);
           }
 
+          // Displaying User Reaction component
           setShowUserReaction(true);
         })
   }
@@ -134,12 +141,15 @@ function Chatbot(props) {
 
     console.log(data);
 
+    // User reaction object, contains their reaction (liked or disliked), the question and answer
+    // they asked that pertains to that reaction
     const userReactionRequest = {
       "userReaction": data,
       "question": previousQuestion,
       "answer": previousAnswer
     }
 
+    // Sending the request via axios
     await axios.post("http://127.0.0.1:8081/userReaction", {
       userReactionRequest
     })
@@ -150,6 +160,13 @@ function Chatbot(props) {
       <div className="outer-container">
         <div className="container">
           {
+            /*
+            Conditionally renders the message container based on if it's the first time the user 
+            interacts with the bot (initial view) or not.
+
+            If it is the initial view, User Prompt Component is rendered instead. If it is not the initial
+            view, render the message container
+            */
             showMessages ? (
               <ChatContainer>
                 <MessageList className="message-list"
