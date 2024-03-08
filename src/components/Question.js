@@ -1,3 +1,5 @@
+// File not used in CHATBOT UI, simply to test out some features
+
 import React, { useState, useEffect } from 'react';
 import '../css/Question.css'
 

@@ -1,3 +1,5 @@
+// File not used in CHATBOT UI, simply to test out some features
+
 import React from 'react'
 import axios from 'axios';
 import Chatbot from './Chatbot';
