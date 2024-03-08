@@ -5,7 +5,7 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 
 // Component displays the initial view of the chatbot when the user first interacts with it
-export default function UserInfo(props) {
+export default function UserPrompt(props) {
 
     // Some common hardcoded questions the user can select
     const promptQuestions = ["How do I clear my browser cache?", "Can Firearm Applications be uploaded to the DIR?", "How do I enter an Adjournment for a matter?"];
