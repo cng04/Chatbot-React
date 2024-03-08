@@ -1,7 +1,7 @@
-.chatbot {
+/* .chatbot {
   display: block;
   width: auto;
-}
+} */
 
 /* Adjusting display of Chatbot Component for monitors */
 @media only screen and (min-width:1300px) {
