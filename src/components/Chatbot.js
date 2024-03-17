@@ -21,7 +21,7 @@ function Chatbot(props) {
 
   const [messages, setMessages] = useState(listMessages);
 
-  // State to indicate whether Open AI is generating the responsem, initial value is falses
+  // State to indicate whether Open AI is generating the responsem, initial value is false
   const [typing, setTyping] = useState(false);
 
   // State to keep and set the similar questions the OpenAI model responds with

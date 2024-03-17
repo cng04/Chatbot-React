@@ -1,14 +1,18 @@
-/* File not used in CHATBOT UI, simply to test out some features */
+/* File used in the summarize feature */
 
 .upload-container {
-    padding-left: 50px;
-    padding-top: 10px;
-    width: 550px;
+    /* padding-left: 50px;
+    padding-top: 10px; */
+    width: 100vw;
+    height: 555px;
+    display: flex;
+    justify-content: center;
 }
 
 .upload {
     display: flex;
     flex-direction: column;
+    padding-top: 20px;
 }
 
 .upload-text {
@@ -25,4 +29,22 @@
 
 .buttons {
     display: flex;
+}
+
+.input-instructions {
+    width: 600px;
+    margin-top: 30px;
+}
+
+.input-container {
+    margin-top: 30px;
+}
+
+.summarize-button-container {
+    margin-top: 30px;
+}
+
+.response-container {
+    width: 600px;
+    margin-top: 10px;
 }
