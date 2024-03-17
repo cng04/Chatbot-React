@@ -18,8 +18,10 @@
 
 .header-button-container {
     display: flex;
+    height: 52px;
+    right: 0;
+    position: absolute;
     align-items: center;
-    margin-left: 10px;
 }
 
 .header-button {
