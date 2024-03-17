@@ -23,8 +23,8 @@ export default function Header() {
         <div className="ontario-logo">
           <img className="ontario-logo-image" src={ontarioLogo} alt="Government of Ontario Logo"/>
           <div className="header-button-container">
-            <Button variant="contained" style={{marginLeft: 20}} className="header-button" onClick={handleChatbotButton}>Chatbot</Button>
-            <Button variant="contained" style={{marginLeft: 20}} className="header-button" onClick={handleUploadButton}>Upload</Button>
+            <Button variant="contained" className="header-button" onClick={handleChatbotButton}>Chatbot</Button>
+            <Button variant="contained" style={{marginLeft: 20, marginRight: 20}} className="header-button" onClick={handleUploadButton}>Upload</Button>
           </div>
         </div>
     </div>

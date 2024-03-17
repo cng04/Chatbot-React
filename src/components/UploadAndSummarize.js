@@ -1,14 +1,14 @@
-// File used in the summarize feature
+// File used in the upload and summarize feature
 
 import React from 'react'
 import axios from 'axios';
-import '../css/Upload.css'
+import '../css/UploadAndSummarize.css'
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { MessageInput } from '@chatscope/chat-ui-kit-react'
 
 
-export default function Upload() {
+export default function UploadAndSummarize() {
 
     // State to keep track of file selected
     const [file, setFile] = useState(null);
@@ -30,8 +30,11 @@ export default function Upload() {
     // State to handle whether the model responded
     const[didModelRespond, setDidModelRespond] = useState(false);
 
-    // State to indicate whether Open AI is generating the responsem, initial value is false
+    // State to indicate whether Open AI is generating the response, initial value is false
     const [generatingResponse, setGeneratingResponse] = useState(false);
+
+    // State to indicate uploading has finished
+    const [uploadingProgress, setUploadingProgress] = useState("");
 
     // Handles file upload
     const handleUpload = async (click) => {

@@ -1,7 +1,7 @@
 import './App.css';
 import Chatbot from './components/Chatbot';
 import Header from './components/Header';
-import Upload from './components/Upload';
+import UploadAndSummarize from './components/UploadAndSummarize';
 import { BrowserRouter, Routes, Route, Switch } from 'react-router-dom';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Chatbot/>}/>
-        <Route path="/upload" element={<Upload/>}/>
+        <Route path="/upload" element={<UploadAndSummarize/>}/>
       </Routes>
       
     </BrowserRouter>
