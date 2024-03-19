@@ -13,14 +13,6 @@ export default function UploadAndSummarize() {
     // State to keep track of file selected
     const [file, setFile] = useState(null);
     
-    // Other states
-    const [progress, setProgress] = useState({
-        started: false, 
-        pc: 0
-    });
-
-    const [msg, setMsg] = useState(null);
-
     // State to handle whether the summarize button is displayed based on whether the user has entered additonal context
     const [generalSummary, setGeneralSummary] = useState(true);
 
@@ -51,12 +43,8 @@ export default function UploadAndSummarize() {
 
         console.log(fd);
 
-        setMsg("Uploading in progress ...");
-
         // Sending request
-        axios.post("http://127.0.0.1:8081/upload", fd, {
-            onUploadProgress: (progressEvent) => { console.log(progressEvent.progress * 100) },
-        })
+        axios.post("http://127.0.0.1:8081/upload", fd)
         .then((response) => {return response.data;}).then((data) => console.log(data))
         .catch((error) => console.log(error));
 
