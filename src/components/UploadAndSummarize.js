@@ -28,12 +28,12 @@ export default function UploadAndSummarize() {
     const [response, setResponse] = useState("");
 
     // State to handle whether the model responded
-    const[didModelRespond, setDidModelRespond] = useState(false);
+    const [didModelRespond, setDidModelRespond] = useState(false);
 
     // State to indicate whether Open AI is generating the response, initial value is false
     const [generatingResponse, setGeneratingResponse] = useState(false);
 
-    // State to indicate uploading has finished
+    // State to indicate uploading has finished - not implemented yet
     const [uploadingProgress, setUploadingProgress] = useState("");
 
     // Handles file upload
