@@ -1,7 +1,7 @@
 import '../css/Chatbot.css';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, Button } from '@chatscope/chat-ui-kit-react'
-import { useState, useEffect, useRef } from 'react';
+import { ChatContainer, MessageList, Message, MessageInput } from '@chatscope/chat-ui-kit-react'
+import { useState } from 'react';
 import axios from 'axios';
 
 // Chatbot is parent component of Similar Questions
