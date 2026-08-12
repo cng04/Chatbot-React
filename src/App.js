@@ -2,7 +2,7 @@ import './App.css';
 import Chatbot from './components/Chatbot';
 import Header from './components/Header';
 import UploadAndSummarize from './components/UploadAndSummarize';
-import { BrowserRouter, Routes, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
 

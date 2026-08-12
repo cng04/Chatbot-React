@@ -121,10 +121,10 @@ function Chatbot(props) {
         })
   }
 
-  // Function to clear chatbot messages
-  const refresh = (event) => {
-    setMessages([]);
-  }
+  // Function to clear chatbot messages - unused until the refresh button below is re-enabled
+  // const refresh = (event) => {
+  //   setMessages([]);
+  // }
 
   // Function to handle data passed in from child components
   const handleDataFromChild = (data) => {

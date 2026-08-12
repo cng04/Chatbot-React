@@ -26,7 +26,7 @@ export default function UploadAndSummarize() {
     const [generatingResponse, setGeneratingResponse] = useState(false);
 
     // State to indicate uploading has finished - not implemented yet
-    const [uploadingProgress, setUploadingProgress] = useState("");
+    // const [uploadingProgress, setUploadingProgress] = useState("");
 
     // Handles file upload
     const handleUpload = async (click) => {

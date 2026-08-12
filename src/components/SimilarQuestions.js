@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import '../css/SimilarQuestions.css'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
-import { useState } from 'react';
 
 
 // Similar Questions is a Child component of Chatbot, component displays the similar questions
