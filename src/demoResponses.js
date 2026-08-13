@@ -33,7 +33,7 @@ const SAMPLE_RESPONSES = [
     ],
   },
   {
-    match: /firearm|DIR|upload|repositor/i,
+    match: /firearm|\bDIR\b|upload|repositor/i,
     answer:
       'Yes. Firearm applications can be uploaded to the DIR, provided they are scanned as a searchable PDF and are under the per-file size limit.<br/><br/>' +
       'The usual sequence is:<br/>' +
