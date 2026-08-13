@@ -2,7 +2,7 @@ import '../css/Chatbot.css';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import { ChatContainer, MessageList, Message, MessageInput } from '@chatscope/chat-ui-kit-react'
 import { useState } from 'react';
-import axios from 'axios';
+import { askQuestion, sendUserReaction } from '../api';
 
 // Chatbot is parent component of Similar Questions
 import SimilarQuestions from './SimilarQuestions';
@@ -72,53 +72,43 @@ function Chatbot(props) {
   async function processMessageOpenAI(question) {
     console.log(question.message);
 
-    // API POST endpoint
-    let api_endpoint = "http://127.0.0.1:8081/question"
-
-    if (question.message === "similar") {
-      api_endpoint = "http://127.0.0.1:8081/similar"
-    } 
-
-    // if (props.upload == "true") {
-    //   api_endpoint = "http://127.0.0.1:8081/index"
-    // } else {
-    //   api_endpoint = "http://127.0.0.1:8081/question"
-    // }
-
     console.log(props.upload)
-    await fetch (api_endpoint, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                content: question
-            })
-        }).then((response) => {
-          return response.json();
-        }).then((data) => {
-          const answer = data.answer;
-          const sq = data.similarQuestions;
-          console.log(sq);
 
-          // Updating the messages state variable with the question and answer
-          setMessages([...messages, question, answer]);
+    try {
+      const data = await askQuestion(question);
 
-          // Setting previous question and answer for user reaction object
-          setPreviousQuestion(question.message);
-          setPreviousAnswer(answer.message);
+      const answer = data.answer;
+      const sq = data.similarQuestions;
+      console.log(sq);
 
-          setTyping(false);
+      // Updating the messages state variable with the question and answer
+      setMessages([...messages, question, answer]);
 
-          // If model didn't generate any similar questions, don't display similar questions
-          if (sq.length !== 0) {
-            setSimilarQuestions(sq);
-            setShowSimilarQuestions(true);
-          }
+      // Setting previous question and answer for user reaction object
+      setPreviousQuestion(question.message);
+      setPreviousAnswer(answer.message);
 
-          // Displaying User Reaction component
-          setShowUserReaction(true);
-        })
+      setTyping(false);
+
+      // If model didn't generate any similar questions, don't display similar questions
+      if (sq.length !== 0) {
+        setSimilarQuestions(sq);
+        setShowSimilarQuestions(true);
+      }
+
+      // Displaying User Reaction component
+      setShowUserReaction(true);
+    } catch (error) {
+      // Surfacing the failure in the chat, otherwise the typing indicator hangs forever
+      console.log(error);
+
+      setMessages([...messages, question, {
+        sender: "OpenAI",
+        message: "Sorry, I couldn't reach the server to answer that. Please check that the backend is running and try again."
+      }]);
+
+      setTyping(false);
+    }
   }
 
   // Function to clear chatbot messages - unused until the refresh button below is re-enabled
@@ -149,10 +139,11 @@ function Chatbot(props) {
       "answer": previousAnswer
     }
 
-    // Sending the request via axios
-    await axios.post("http://127.0.0.1:8081/userReaction", {
-      userReactionRequest
-    })
+    try {
+      await sendUserReaction(userReactionRequest);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

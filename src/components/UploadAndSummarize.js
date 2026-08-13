@@ -1,11 +1,11 @@
 // File used in the upload and summarize feature
 
 import React from 'react'
-import axios from 'axios';
 import '../css/UploadAndSummarize.css'
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { MessageInput } from '@chatscope/chat-ui-kit-react'
+import { uploadFile, clearDocument, summarize } from '../api';
 
 
 export default function UploadAndSummarize() {
@@ -35,32 +35,24 @@ export default function UploadAndSummarize() {
             console.log("No file selected");
             return;
         }
-        
-        // Otherwise create a FormData object, FormData sets POST request headers automatically
-        // Also FormData supports multiple files
-        const fd = new FormData();
-        fd.append("file", file);
-
-        console.log(fd);
 
         // Sending request
-        axios.post("http://127.0.0.1:8081/upload", fd)
-        .then((response) => {return response.data;}).then((data) => console.log(data))
-        .catch((error) => console.log(error));
-
-        // fetch("http://127.0.0.1:8081/upload", {
-        //     method: "POST",
-        //     body: fd
-        // }).then((response) => response.json()).catch((error) => console.log(error));
+        try {
+            const data = await uploadFile(file);
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    const clear = (click) => {
-        const msg = {"message": "clear"}
-
+    const clear = async (click) => {
         // Sending clear request
-        axios.post("http://127.0.0.1:8081/clear", msg)
-        .then((response) => console.log(response.data))
-        .catch((error) => console.log(error));
+        try {
+            const data = await clearDocument();
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // Checks if the user has entered something in the message input field
@@ -78,43 +70,32 @@ export default function UploadAndSummarize() {
         }
     }
 
-    // Handles additional context message input
-    const handleContextSend = async (contextValue) => {
-        const contextRequest = {
-            "context": contextValue
-        }
-
+    const requestSummary = async (context) => {
         setGeneratingResponse(true);
         setDidModelRespond(false);
 
-        // Sending additional context request
-        await axios.post("http://127.0.0.1:8081/summarize", {
-            contextRequest
-        }).then((response) => {
-            setResponse(response.data.response);
+        try {
+            const data = await summarize(context);
+
+            setResponse(data.response);
             setDidModelRespond(true);
-            setGeneralSummary(true);
-            setGeneratingResponse(false);
-        })
+        } catch (error) {
+            console.log(error);
+
+            setResponse("Sorry, I couldn't reach the server to summarize the document. Please check that the backend is running and try again.");
+            setDidModelRespond(true);
+        }
+
+        setGeneralSummary(true);
+        setGeneratingResponse(false);
     }
 
-    // Handles summarize button click
+    const handleContextSend = async (contextValue) => {
+        await requestSummary(contextValue);
+    }
+
     const handleSummarizeSend = async (event) => {
-        const contextRequest = {
-            "context": event.target.value
-        }
-
-        setGeneratingResponse(true);
-        setDidModelRespond(false);
-
-        // Sending additional context request
-        await axios.post("http://127.0.0.1:8081/summarize", {
-            contextRequest
-        }).then((response) => {
-            setResponse(response.data.response);
-            setDidModelRespond(true);
-            setGeneratingResponse(false);
-        })
+        await requestSummary("");
     }
 
 

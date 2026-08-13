@@ -3,6 +3,7 @@ import '../css/Header.css';
 import ontarioLogo from '../images/logo-ontario@2x.png'
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import { isDemoMode } from '../api';
 
 // Component for the Ontario Header
 export default function Header() {
@@ -24,7 +25,7 @@ export default function Header() {
           <img className="ontario-logo-image" src={ontarioLogo} alt="Government of Ontario Logo"/>
           <div className="header-button-container">
             <Button variant="contained" className="header-button" onClick={handleChatbotButton}>Chatbot</Button>
-            <Button variant="contained" style={{marginLeft: 20, marginRight: 20}} className="header-button" onClick={handleUploadButton}>Upload</Button>
+            {!isDemoMode() && <Button variant="contained" style={{marginLeft: 20, marginRight: 20}} className="header-button" onClick={handleUploadButton}>Upload</Button>}
           </div>
         </div>
     </div>
